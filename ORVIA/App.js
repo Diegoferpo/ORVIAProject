@@ -1,10 +1,12 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from '@firebase/auth';
-import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, Platform } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { initializeApp } from "firebase/app";
 import React, { useState, useEffect } from 'react';
+
 
 import HomeView from './screens/HomeView';
 import CalendarView from './screens/CalendarView';
@@ -12,6 +14,8 @@ import PatientsView from './screens/PatientsView';
 import ProfileView from './screens/ProfileView';
 import CreateAppointment from './screens/CreateAppointmentView';
 import styles from './styles/AppStyle';
+import StatusBarCustom from './components/Header';
+import Navbar from './components/Navbar';
 
 const Stack = createNativeStackNavigator();
 
@@ -101,16 +105,32 @@ const AuthScreen = ({ email, setEmail, password, setPassword, confirmPassword, s
   );
 };
 
+const Tab = createBottomTabNavigator();
 const AuthenticatedScreen = ({ user, handleAuthentication }) => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeView} />
-        <Stack.Screen name="Calendar" component={CalendarView} />
-        <Stack.Screen name="Create" component={CreateAppointment} />
-        <Stack.Screen name="Patients" component={PatientsView} />
-        <Stack.Screen name="Profile" component={ProfileView} />
-      </Stack.Navigator>
+      <StatusBarCustom backgroundColor="#022B3A" style="light" />
+
+      <Tab.Navigator 
+        screenOptions={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#022B3A', 
+            height: Platform.OS === 'android' ? 80 : 80,},
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'left',
+          headerTitleStyle: { fontWeight: 'bold', fontSize: 32},
+          headerBackVisible: false,
+        }}
+        tabBar={(props) => <Navbar {...props} />}
+      >
+        <Tab.Screen name="Inicio" component={HomeView} />
+        <Tab.Screen name="Calendario" component={CalendarView} />
+        <Tab.Screen name="Agendar Cita" component={CreateAppointment} />
+        <Tab.Screen name="Pacientes" component={PatientsView} />
+        <Tab.Screen name="Perfil" component={ProfileView} />
+      </Tab.Navigator>
+
     </NavigationContainer>
   );
 };

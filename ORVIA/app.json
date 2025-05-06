@@ -4,7 +4,7 @@
     "slug": "ORVIA",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo_white.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -13,7 +13,10 @@
       "backgroundColor": "#022B3A"
     },
     "ios": {
-      "supportsTablet": true
+      "infoPlist": {
+        "UIViewControllerBasedStatusBarAppearance": true
+      }
+
     },
     "android": {
       "adaptiveIcon": {
