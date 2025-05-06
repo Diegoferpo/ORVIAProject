@@ -1,12 +1,21 @@
-import { Text, SafeAreaView, StatusBar } from "react-native-safe-area-context";
-import styles from "../styles/HeaderStyle";
-const Header = () => {
-    return(
-        <SafeAreaView edges={['top']} style={styles.header}>
-            <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
-                <Text style={styles.headerText}>Inicio</Text>
-        </SafeAreaView>
-    )
-}
 
-export default Header;
+import React from 'react';
+import { View, Platform } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+
+const StatusBarCustom = ({ backgroundColor = '#022B3A', style = 'light' }) => {
+  return (
+    <View style={{
+      height: Platform.OS === 'ios' ? 44 : 24,
+      backgroundColor,
+    }}>
+      <StatusBar
+        translucent
+        backgroundColor={backgroundColor}
+        style={style} 
+      />
+    </View>
+  );
+};
+
+export default StatusBarCustom;
