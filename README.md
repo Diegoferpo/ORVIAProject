@@ -10,5 +10,32 @@ Intrucciones:
 
 NOTA: No hacer "Merge" a la rama "Main" ni cambiar permisos del repo. (-_-)
 
+//Tipos de datos
+PACIENTE
+    nombre: string;
+    expediente: number;
+    telefono: number;
+    correo: string;
+    telefonoEmergencia: number;
+    idHistorial: number;
+
+CITA
+    idHistorial: number;
+    fecha: Date:
+    duracion: number;
+    motivo: string;
+    observaciones: string;
+    recomendaciones: string;
+    comentarios: string:
+
+FISIO
+    nombre: string;
+    apellido: string;
+    puesto: string;
+    telefono: number;
+    fechaNac: Date;
+
+    
+
 Equipo de Desarrollo: 
 Diego, Emmanuel, Martin & Leonardo
