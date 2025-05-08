@@ -10,9 +10,13 @@ import { CitaModule } from './cita/cita.module';
 import { UsuarioController } from './usuario/usuario.controller';
 import { UsuarioService } from './usuario/usuario.service';
 import { UsuarioModule } from './usuario/usuario.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [PacienteModule, CitaModule, UsuarioModule],
+  imports: [PacienteModule, CitaModule, UsuarioModule, 
+    ConfigModule.forRoot({envFilePath: ['.env.development'], 
+    isGlobal: true,
+  })],
   controllers: [AppController, PacienteController, CitaController, UsuarioController],
   providers: [AppService, PacienteService, CitaService, UsuarioService],
 })

@@ -28,7 +28,7 @@ CITA
     recomendaciones: string;
     comentarios: string:
 
-FISIO
+USUARIO
     nombre: string;
     apellido: string;
     puesto: string;
