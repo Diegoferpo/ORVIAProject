@@ -4,25 +4,28 @@
     "slug": "ORVIA",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo_white.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/logo_white.png",
       "resizeMode": "contain",
       "backgroundColor": "#022B3A"
     },
     "ios": {
-      "supportsTablet": true
+      "infoPlist": {
+        "UIViewControllerBasedStatusBarAppearance": true
+      }
+
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo_white.png",
         "backgroundColor": "#022B3A"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logo_white.png"
     }
   }
 }
