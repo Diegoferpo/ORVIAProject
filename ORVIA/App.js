@@ -2,7 +2,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeView from './screens/HomeView';
 import CalendarView from './screens/CalendarView';
-import PatientsView from './screens/PatientsVIew';
+import PatientsView from './screens/PatientsView';
 import ProfileView from './screens/ProfileView';
 import CreateAppointment from './screens/CreateAppointmentView';
 
