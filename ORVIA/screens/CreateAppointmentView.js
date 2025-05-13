@@ -3,12 +3,12 @@ import styles from '../styles/CreateAppointmentStyle';
 import Navbar from '../components/Navbar';
 
 
-const CreateAppointmentView = ({navigation}) => {
+const CreateAppointmentView = () => {
     return (
         <View style={styles.container}>
             <View></View>
 
-            <Navbar navigation={navigation} />
+        
         </View>
     );
 }

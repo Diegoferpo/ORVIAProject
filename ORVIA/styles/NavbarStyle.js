@@ -1,32 +1,32 @@
-import { StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
-    navbar: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        height: '10%',
-        backgroundColor: 'white',
-        borderTopWidth: 1,
-        borderTopColor: '#ddd',
-        position: 'absolute',
-        bottom: '2%',
-        width: '100%',
-      },
-      navItem: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-      },
-      centralButton: {
-        backgroundColor: '#1F7A8C',
-        width: '13%',
-        height: '65%',
-        borderRadius: 15,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginHorizontal: '3%'
-      },
-})
-
-export default styles;
+export default StyleSheet.create({
+  navbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: '11%',
+    backgroundColor: '#fff',
+    borderTopWidth: 1,
+    borderTopColor: '#ccc'
+  },
+  navItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '5%'
+  },
+  centralButton: {
+    width: '12%',
+    height: '80%',
+    marginTop: '5%',
+    borderRadius: 20,
+    backgroundColor: '#022B3A',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 8,
+  },
+});
