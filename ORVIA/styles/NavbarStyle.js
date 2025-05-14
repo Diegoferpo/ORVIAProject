@@ -16,8 +16,8 @@ export default StyleSheet.create({
     marginTop: '5%'
   },
   centralButton: {
-    width: '12%',
-    height: '80%',
+    width: '13%',
+    height: 50,
     marginTop: '5%',
     borderRadius: 20,
     backgroundColor: '#022B3A',
@@ -25,8 +25,5 @@ export default StyleSheet.create({
     justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 8,
   },
 });

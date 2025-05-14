@@ -9,6 +9,8 @@ import styles from './styles/AppStyle';
 import StatusBarCustom from './components/Header';
 import Navbar from './components/Navbar';
 import {Platform } from 'react-native';
+import CalendarStack from './screens/CalendarView';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 
 const Tab = createBottomTabNavigator();
@@ -32,7 +34,17 @@ export default function App() {
         tabBar={(props) => <Navbar {...props} />}
       >
         <Tab.Screen name="Inicio" component={HomeView} />
-        <Tab.Screen name="Calendario" component={CalendarView} />
+        <Tab.Screen
+          name="Calendario"
+          component={CalendarStack}
+          options={({ route }) => {
+            const routeName = getFocusedRouteNameFromRoute(route) ?? 'CalendarioPrincipal';
+            const hideHeader = routeName !== 'CalendarioPrincipal';
+            return {
+              headerShown: !hideHeader,
+            };
+          }}
+        />
         <Tab.Screen name="Agendar Cita" component={CreateAppointment} />
         <Tab.Screen name="Pacientes" component={PatientsView} />
         <Tab.Screen name="Perfil" component={ProfileView} />
