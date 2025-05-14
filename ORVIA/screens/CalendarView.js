@@ -100,7 +100,7 @@ export const CalendarStack = () => {
       screenOptions={{
         headerStyle: {
           backgroundColor: '#022B3A',
-          height: Platform.OS === 'android' ? 80 : undefined,
+          height: Platform.OS === 'android' ? 80 : 80,
         },
         headerTintColor: '#fff',
         headerTitleAlign: 'left',
