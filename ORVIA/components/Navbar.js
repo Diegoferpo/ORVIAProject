@@ -54,7 +54,7 @@ const Navbar = ({ state, descriptors, navigation }) => {
 
             />
             {!isCentral && (
-              <Text style={{ fontSize: 1, color: isFocused ? '#022B3A' : 'black' }}>
+              <Text style={{ fontSize: 10, color: isFocused ? '#022B3A' : 'black' }}>
               </Text>
             )}
           </TouchableOpacity>
