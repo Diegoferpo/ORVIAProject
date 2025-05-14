@@ -18,7 +18,7 @@ export default StyleSheet.create({
   centralButton: {
     width: '13%',
     height: 50,
-    marginTop: '5%',
+    marginTop: '2.5%',
     borderRadius: 20,
     backgroundColor: '#022B3A',
     alignItems: 'center',
