@@ -3,12 +3,12 @@ import styles from '../styles/ProfileStyle';
 import Navbar from '../components/Navbar';
 
 
-const ProfileView = ({navigation}) => {
+const ProfileView = () => {
     return (
         <View style={styles.container}>
             <View></View>
 
-            <Navbar navigation={navigation} />
+            
         </View>
     );
 }

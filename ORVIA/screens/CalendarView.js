@@ -3,12 +3,12 @@ import styles from '../styles/CalendarStyle';
 import Navbar from '../components/Navbar';
 
 
-const CalendarView = ({navigation}) => {
+const CalendarView = () => {
     return (
         <View style={styles.container}>
             <View></View>
 
-            <Navbar navigation={navigation} />
+            
         </View>
     );
 }

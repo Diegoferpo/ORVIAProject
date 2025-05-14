@@ -3,12 +3,12 @@ import styles from '../styles/PatientsStyle';
 import Navbar from '../components/Navbar';
 
 
-const PatientsView = ({navigation}) => {
+const PatientsView = () => {
     return (
         <View style={styles.container}>
             <View></View>
 
-            <Navbar navigation={navigation} />
+            
         </View>
     );
 }
