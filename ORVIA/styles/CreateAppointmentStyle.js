@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       width: '100%',
       marginBottom: '3%', 
-      shadowOpacity: 0.15,
+      shadowOpacity: 0.1,
     },
     smallInput: {
       width: '30%',
