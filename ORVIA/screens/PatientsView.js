@@ -1,10 +1,9 @@
 import styles from '../styles/PatientsStyle';
-import Navbar from '../components/Navbar';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-const PatientScreen = ({ navigation }) => {
+const PatientScreen = () => {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,7 +23,6 @@ const PatientScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.title}>Pacientes</Text>
 
         {loading ? (
           <ActivityIndicator size="large" color="#0593D3" style={{ marginTop: '10%' }} />

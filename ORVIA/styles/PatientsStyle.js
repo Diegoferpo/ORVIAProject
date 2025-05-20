@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     
   },
   scrollContent: {
+    marginTop: '8%',
     paddingBottom: '20%',
     paddingHorizontal: '5%',
   },
