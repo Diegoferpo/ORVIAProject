@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@aws-amplify/react-native": "^1.1.9",
     "@primer/react-brand": "^0.51.1"
   }
 }
