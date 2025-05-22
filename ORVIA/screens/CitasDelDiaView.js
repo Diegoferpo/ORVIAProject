@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { View, Text, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import styles from '../styles/CitasDelDiaStyle';
 import { useRoute, useNavigation } from '@react-navigation/native';

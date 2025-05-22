@@ -1,5 +1,3 @@
-
-import React from 'react';
 import { View, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 

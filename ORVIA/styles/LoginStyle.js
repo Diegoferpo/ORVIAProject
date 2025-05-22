@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
       },
       button1: {
-        color: '#022B3A',
+        color: 'red',
       },
       toggleText: {
         color: '#3498db',

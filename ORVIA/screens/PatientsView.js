@@ -1,6 +1,6 @@
 import styles from '../styles/PatientsStyle';
 import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 const PatientScreen = () => {
@@ -21,7 +21,7 @@ const PatientScreen = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container}> 
       <ScrollView contentContainerStyle={styles.scrollContent}>
 
         {loading ? (

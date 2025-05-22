@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Platform, TouchableOpacity } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TextInput, Platform, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import styles from '../styles/CreateAppointmentStyle';

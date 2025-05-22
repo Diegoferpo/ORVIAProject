@@ -1,6 +1,6 @@
 import styles from '../styles/ProfileStyle';
 import Navbar from '../components/Navbar';
-import React from 'react';
+
 import { View, Text, ScrollView, Switch, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
