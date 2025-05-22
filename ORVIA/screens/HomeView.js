@@ -8,28 +8,37 @@ const HomeView = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulación de llamada a una API
-    setTimeout(() => {
-      const fakeCitas = [
-        {
-          id: '1',
-          nombre: 'Diego Portillo Bibiano',
-          fecha: '2025-03-12T14:00:00',
-        },
-        {
-          id: '2',
-          nombre: 'Emmanuel Moscoso Aquino',
-          fecha: '2025-03-12T15:00:00',
-        },
-        {
-          id: '3',
-          nombre: 'Laura Gutiérrez',
-          fecha: '2025-06-20T11:00:00',
-        },
-      ];
-      setCitas(fakeCitas);
-      setLoading(false);
-    }, 1500);
+    const fetchCitas = async () => {
+      try {
+        const response = await fetch('http://54.237.212.176:3000/api/v1/cita');
+        const data = await response.json();
+
+        const hoy = new Date();
+        const hoyStr = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
+
+
+        const citasHoy = data
+          .filter(cita => {
+            const fecha = new Date(cita.fechaHora);
+            const citaStr = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}-${String(fecha.getDate()).padStart(2, '0')}`;
+            return citaStr === hoyStr;
+          })          
+          .map(cita => ({
+            id: cita.idCita,
+            nombre: cita.expediente?.nombre || 'Paciente',
+            fecha: cita.fechaHora,
+          }));
+
+        setCitas(citasHoy);
+      } catch (error) {
+        console.error('Error al cargar citas:', error);
+        setCitas([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCitas();
   }, []);
 
   const formatearFecha = (fechaISO) => {

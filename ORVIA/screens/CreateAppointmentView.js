@@ -8,7 +8,7 @@ import { Picker } from '@react-native-picker/picker';
 
 
 const CreateAppointmentView = () => {
-    const [nombre, setNombre] = useState('');
+    const [expediente, setExpediente] = useState('');
     const [fecha, setFecha] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
@@ -16,8 +16,59 @@ const CreateAppointmentView = () => {
     const [duracion, setDuracion] = useState('');
     const [motivo, setMotivo] = useState('');
     const [observaciones, setObservaciones] = useState('');
-    const [recomendaciones, setRecomendaciones] = useState('');
     const [comentarios, setComentarios] = useState('');
+
+  const guardarCita = async () => {
+    if (!expediente || isNaN(expediente)) {
+      alert('El expediente debe ser un número válido');
+      return;
+    }
+  
+    if (!duracion || !motivo) {
+      alert('Duración y motivo son obligatorios');
+      return;
+    }
+
+    const nuevaCita = {
+      expediente: parseInt(expediente),
+      fechaHora: fecha.toISOString(),
+      duracion: parseInt(duracion),
+      motivo,
+      observaciones,
+      comentarios,
+    };
+
+    try {
+      const response = await fetch('http://54.237.212.176:3000/api/v1/cita', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(nuevaCita),
+      });
+
+      if (response.ok) {
+        alert('Cita guardada correctamente');
+        limpiarFormulario();
+      } else {
+        const error = await response.text();
+        console.error('Error al guardar:', error);
+        alert('Hubo un error al guardar la cita');
+      }
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+      alert('No se pudo conectar con el servidor');
+    }
+  };
+
+  const limpiarFormulario = () => {
+    setExpediente('');
+    setFecha(new Date());
+    setDuracion('');
+    setMotivo('');
+    setObservaciones('');
+    setComentarios('');
+  };  
 
   const onChangeDate = (event, selectedDate) => {
     setShowDatePicker(false);
@@ -49,12 +100,12 @@ const CreateAppointmentView = () => {
     <GestureHandlerRootView>
     <ScrollView contentContainerStyle={styles.container}>
 
-      <Text style={styles.label}>Nombre</Text>
+      <Text style={styles.label}>Expediente</Text>
       <TextInput
         style={styles.input}
-        placeholder="Nombre del paciente"
-        value={nombre}
-        onChangeText={setNombre}
+        placeholder="Expediente del paciente"
+        value={expediente}
+        onChangeText={setExpediente}
       />
 
       <Text style={styles.label}>Fecha</Text>
@@ -129,7 +180,7 @@ const CreateAppointmentView = () => {
     <Text style={styles.label}>Motivo de la cita</Text>
         <TextInput
             style={styles.input}
-            placeholder="Motivo"
+            placeholder="Motivo de la cita"
             value={motivo}
             onChangeText={setMotivo}
         />
@@ -142,14 +193,6 @@ const CreateAppointmentView = () => {
             onChangeText={setObservaciones}
         />
 
-        <Text style={styles.label}>Recomendaciones</Text>
-        <TextInput
-            style={styles.input}
-            placeholder="Recomendaciones"
-            value={recomendaciones}
-            onChangeText={setRecomendaciones}
-        />
-
         <Text style={styles.label}>Comentarios</Text>
         <TextInput
             style={styles.input}
@@ -158,7 +201,7 @@ const CreateAppointmentView = () => {
             onChangeText={setComentarios}
         />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={guardarCita}>
             <Text style={styles.buttonText}>Guardar cita</Text>
         </TouchableOpacity>
     </ScrollView>

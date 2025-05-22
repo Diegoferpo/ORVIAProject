@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
 import styles from '../styles/InformacionStyle';
 import { useRoute } from '@react-navigation/native';
 
@@ -13,19 +13,48 @@ const formatoFechaCompleta = (fecha) =>
 
 const InformacionView = () => {
   const route = useRoute();
-  const { cita } = route.params;
+  const { idCita } = route.params;
 
-  const fecha = new Date(`${cita.date}T00:00:00`);
-  const hora = cita.start;
+  const [cita, setCita] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const defaultData = {
-    treatment: 'Rehabilitación de rodilla',
-    duration: 75,
-    reason: 'Dolor persistente tras cirugía de ligamentos',
-    therapist: 'Emmet L.',
-    prevNotes: 'Mejoría en la movilidad, pero sigue con inflamación.',
-    comments: 'Evaluar progreso en flexión y extensión; posible ajuste en terapia según respuesta del paciente.',
-  };
+  useEffect(() => {
+    const fetchCita = async () => {
+      try {
+        const response = await fetch('http://54.237.212.176:3000/api/v1/cita');
+        const data = await response.json();
+        const encontrada = data.find(c => c.idCita.toString() === idCita.toString());
+        setCita(encontrada);
+      } catch (error) {
+        console.error('Error al obtener la cita:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCita();
+  }, [idCita]);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#007E8F" />
+      </View>
+    );
+  }
+
+  if (!cita) {
+    return (
+      <View style={{ padding: 20 }}>
+        <Text style={{ color: '#900' }}>Cita no encontrada.</Text>
+      </View>
+    );
+  }
+
+  const fechaISO = cita.fechaHora.split('T')[0];
+  const fecha = new Date(fechaISO + 'T00:00:00');
+  const nombre = cita.expediente?.nombre || 'Paciente';
+  const hora = fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
     <View style={{ flex: 1 }}>
@@ -40,38 +69,43 @@ const InformacionView = () => {
           </View>
         </View>
 
-        <ScrollView contentContainerStyle={styles.content}>
-          <Text style={styles.nombre}>{cita.name}</Text>
+        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          <Text style={styles.nombre}>{nombre}</Text>
 
           <View style={styles.linea} />
 
           <Text style={styles.etiqueta}>Asunto</Text>
-          <Text style={styles.valor}>{defaultData.treatment}</Text>
+          <Text style={styles.valor}>{cita.motivo || 'No especificado'}</Text>
 
           <View style={styles.linea} />
 
           <Text style={styles.etiqueta}>Duración</Text>
-          <Text style={styles.valor}>{defaultData.duration} minutos.</Text>
-
-          <View style={styles.linea} />
-
-          <Text style={styles.etiqueta}>Motivo de la cita</Text>
-          <Text style={styles.valor}>{defaultData.reason}</Text>
-
-          <View style={styles.linea} />
-
-          <Text style={styles.etiqueta}>Fisioterapeuta</Text>
-          <Text style={styles.valor}>{defaultData.therapist}</Text>
+          <Text style={styles.valor}>{cita.duracion} minutos</Text>
 
           <View style={styles.linea} />
 
           <Text style={styles.etiqueta}>Observaciones previas</Text>
-          <Text style={styles.valor}>{defaultData.prevNotes}</Text>
+          <Text style={styles.valor}>{cita.observaciones || 'Sin observaciones'}</Text>
 
           <View style={styles.linea} />
 
           <Text style={styles.etiqueta}>Comentarios</Text>
-          <Text style={styles.valor}>{defaultData.comments}</Text>
+          <Text style={styles.valor}>{cita.comentarios || 'Ninguno'}</Text>
+
+          <View style={styles.linea} />
+
+          <Text style={styles.etiqueta}>Correo de contacto</Text>
+          <Text style={styles.valor}>{cita.expediente?.correo || 'No disponible'}</Text>
+
+          <View style={styles.linea} />
+
+          <Text style={styles.etiqueta}>Telefono</Text>
+          <Text style={styles.valor}>{cita.expediente?.telefono || 'No disponible'}</Text>
+
+          <View style={styles.linea} />
+
+          <Text style={styles.etiqueta}>Telefono de emergencia</Text>
+          <Text style={styles.valor}>{cita.expediente?.telefonoEmergencia || 'No disponible'}</Text>
         </ScrollView>
       </View>
     </View>
