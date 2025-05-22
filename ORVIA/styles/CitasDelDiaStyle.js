@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F8F9FB',
     padding: 16,
+    paddingLeft: 12,
   },
 
   fechaHeader: {
@@ -15,6 +16,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
+    paddingLeft: 8,
   },
   fechaNumero: {
     fontSize: 32,
@@ -79,31 +81,35 @@ const styles = StyleSheet.create({
 
   listaCitas: {
     paddingBottom: 100,
+    paddingLeft: 7,
   },
   citaFila: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 16,
+    alignItems: 'left',
+    marginBottom: 17,
   },
   hora: {
-    width: 60,
+    width: 68,
   },
   horaInicio: {
     fontSize: 14,
     fontWeight: 'bold',
     color: '#000',
+    marginBottom: 6,
+    marginTop: 12,
   },
   horaFin: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#999',
   },
   cardCita: {
     flex: 1,
     backgroundColor: '#EAEFFF',
     padding: 12,
-    borderRadius: 12,
+    borderRadius: 9,
     flexDirection: 'row',
     gap: 8,
+    marginLeft: 3
   },
   lineaLateral: {
     width: 4,
@@ -114,15 +120,18 @@ const styles = StyleSheet.create({
   nombre: {
     fontWeight: '600',
     color: '#000',
+    fontSize: 14,
   },
-  tratamiento: {
-    fontWeight: '700',
-    color: '#333',
-    marginVertical: 4,
+  telefono: {
+    color: '#444',
+    fontSize: 13,
+    fontWeight: '400',
   },
   motivo: {
-    color: '#444',
-    fontSize: 12,
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#333',
+    marginVertical: 4,
   },
 });
 
