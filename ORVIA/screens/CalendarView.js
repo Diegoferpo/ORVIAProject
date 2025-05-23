@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, Platform } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Platform, TouchableOpacity } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -7,24 +7,41 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styles from '../styles/CalendarStyle';
 import CitasDelDiaView from './CitasDelDiaView';
 import InformacionView from './InformacionView';
-
-const today = new Date().toLocaleDateString('en-CA');
+  
+const localToday = new Date();
+const today = `${localToday.getFullYear()}-${String(localToday.getMonth() + 1).padStart(2, '0')}-${String(localToday.getDate()).padStart(2, '0')}`;
 
 const CalendarScreen = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState(today);
+  const [appointments, setAppointments] = useState([]);
 
-  const appointments = {
-    '2025-03-12': [
-      { id: '1', name: 'Emmanuel Moscoso Aquino', time: '08:00' },
-      { id: '2', name: 'Martin Luna Rogel', time: '09:25' },
-      { id: '3', name: 'Diego F. Portillo Bibiano', time: '10:50' },
-    ],
-    '2025-05-13': [
-      { id: '4', name: 'Paciente Prueba 1', time: '07:00' },
-      { id: '5', name: 'Paciente Prueba 2', time: '08:30' },
-      { id: '6', name: 'Paciente Prueba 3', time: '10:00' },
-      { id: '7', name: 'Paciente Prueba 4', time: '11:30' },
-    ],
+  useEffect(() => {
+    fetchAppointments(selectedDate);
+  }, [selectedDate]);
+
+  const fetchAppointments = async (date) => {
+    try {
+      const response = await fetch('http://54.237.212.176:3000/api/v1/cita');
+      const data = await response.json();
+
+      const citasFiltradas = data.filter(cita => {
+        const fecha = new Date(cita.fechaHora).toISOString().split('T')[0];
+        return fecha === date;
+      });
+
+      const citasMapeadas = citasFiltradas
+      .sort((a, b) => new Date(a.fechaHora) - new Date(b.fechaHora))
+      .map(cita => ({
+        id: cita.idCita,
+        name: cita.expediente?.nombre || 'Paciente desconocido',
+        time: new Date(cita.fechaHora).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      }));
+
+      setAppointments(citasMapeadas);
+    } catch (error) {
+      console.error('Error al obtener las citas:', error);
+      setAppointments([]);
+    }
   };
 
   const handleDayPress = (day) => {
@@ -35,11 +52,14 @@ const CalendarScreen = ({ navigation }) => {
     }
   };
 
-  const citas = appointments[selectedDate] || [];
-
   const formatDate = (dateString) => {
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    return new Date(dateString).toLocaleDateString('es-ES', options);
+    const [year, month, day] = dateString.split('-');
+    const fecha = new Date(Number(year), Number(month) - 1, Number(day)); // sin zona horaria
+    return fecha.toLocaleDateString('es-ES', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
   };
 
   return (
@@ -75,13 +95,21 @@ const CalendarScreen = ({ navigation }) => {
       <Text style={styles.dateTitle}>{formatDate(selectedDate)}</Text>
 
       <FlatList
-        data={citas}
+        data={appointments}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.time}>{item.time}</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('InformacionView', {
+                idCita: item.id,
+              })
+            }
+          >
+            <View style={styles.card}>
+              <Text style={styles.name}>{item.name}</Text>
+              <Text style={styles.time}>{item.time}</Text>
+            </View>
+          </TouchableOpacity>
         )}
         contentContainerStyle={styles.scrollArea}
         showsVerticalScrollIndicator={true}
@@ -119,12 +147,12 @@ export const CalendarStack = () => {
       <Stack.Screen
         name="CitasDelDia"
         component={CitasDelDiaView}
-        options={{ title: 'Citas del Día' }}
+        options={{ title: 'Citas del Dia' }}
       />
       <Stack.Screen
         name="InformacionView"
         component={InformacionView}
-        options={{ title: 'Mas Información' }}
+        options={{ title: 'Informacion de la cita' }}
       />
     </Stack.Navigator>
   );

@@ -30,19 +30,8 @@ const calcularEtiquetaHoy = (fecha) => {
   objetivo.setHours(0, 0, 0, 0);
   const diff = (objetivo - hoy) / (1000 * 60 * 60 * 24);
   if (diff === 0) return 'Hoy';
-  if (diff > 0) return `Faltan ${diff} días`;
-  return `Hace ${Math.abs(diff)} días`;
-};
-
-const citasEjemplo = {
-  '2025-05-13': [
-    {
-      id: '1', name: 'Emmanuel Moscoso Aquino', reason: 'Dolor persistente tras cirugía de ligamentos', treatment: 'Rehabilitación de rodilla', start: '08:00', end: '09:15'
-    },
-    {
-      id: '2', name: 'Emmanuel Moscoso Aquino', reason: 'Dolor persistente tras cirugía de ligamentos', treatment: 'Rehabilitación de rodilla', start: '09:25', end: '10:40'
-    },
-  ],
+  if (diff > 0) return `Faltan ${diff} dias`;
+  return `Hace ${Math.abs(diff)} dias`;
 };
 
 const CitasDelDiaView = () => {
@@ -53,22 +42,72 @@ const CitasDelDiaView = () => {
 
   const [fechaSeleccionada, setFechaSeleccionada] = useState(initialDate);
   const [diasRango, setDiasRango] = useState(generarRangoDias(initialDate));
+  const [citas, setCitas] = useState([]);
+
+  useEffect(() => {
+    obtenerCitasPorFecha(fechaSeleccionada);
+  }, [fechaSeleccionada]);
+
+  const obtenerCitasPorFecha = async (fecha) => {
+    try {
+      const response = await fetch('http://54.237.212.176:3000/api/v1/cita');
+      const data = await response.json();
+      const fechaStr = fecha.toISOString().split('T')[0];
+
+      const filtradas = data
+        .filter(cita => new Date(cita.fechaHora).toISOString().split('T')[0] === fechaStr)
+        .map(cita => ({
+          id: cita.idCita,
+          name: cita.expediente?.nombre || 'Paciente desconocido',
+          reason: cita.motivo || 'Sin motivo',
+          telefono: cita.expediente?.telefono || 'Sin telefono', 
+          start: new Date(cita.fechaHora).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          end: calcularHoraFin(cita.fechaHora, cita.duracion),
+          rawDate: new Date(cita.fechaHora),
+          prioridad: cita.prioridad
+        }))
+        .sort((a, b) => a.rawDate - b.rawDate);
+
+      setCitas(filtradas);
+
+
+      setCitas(filtradas);
+    } catch (error) {
+      console.error('Error al obtener citas:', error);
+      setCitas([]);
+    }
+  };
+
+  const obtenerColorPrioridad = (prioridad) => {
+    switch (prioridad) {
+      case 1:
+        return '#6FCF97';
+      case 2:
+        return '#1E90FF'; 
+      case 3:
+        return '#FFA500'; 
+      default:
+        return '#ccc';
+    }
+  };  
+
+  const calcularHoraFin = (fechaHora, duracionMin) => {
+    const fecha = new Date(fechaHora);
+    fecha.setMinutes(fecha.getMinutes() + (duracionMin || 0));
+    return fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
 
   const onScrollEnd = (e) => {
     const offset = e.nativeEvent.contentOffset.x;
     const index = Math.round(offset / ITEM_WIDTH);
     const nuevaFecha = diasRango[index];
     setFechaSeleccionada(nuevaFecha);
-
-    const nuevosDias = generarRangoDias(nuevaFecha);
-    setDiasRango(nuevosDias);
+    setDiasRango(generarRangoDias(nuevaFecha));
 
     setTimeout(() => {
       flatListRef.current?.scrollToIndex({ index: 15, animated: false });
     }, 0);
   };
-
-  const citas = citasEjemplo[fechaSeleccionada.toISOString().split('T')[0]] || [];
 
   return (
     <View style={{ flex: 1 }}>
@@ -84,7 +123,7 @@ const CitasDelDiaView = () => {
         </View>
 
         <View style={styles.scrollWrapper}>
-          <View style={styles.selectorFijo} />
+          <View style={styles.selectorFijo} pointerEvents="none"/>
           <FlatList
             ref={flatListRef}
             data={diasRango}
@@ -121,11 +160,7 @@ const CitasDelDiaView = () => {
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('InformacionView', {
-                  cita: {
-                    name: item.name,
-                    start: item.start,
-                    date: fechaSeleccionada.toISOString().split('T')[0],
-                  },
+                  idCita: item.id,
                 })
               }
             >
@@ -135,11 +170,11 @@ const CitasDelDiaView = () => {
                   <Text style={styles.horaFin}>{item.end}</Text>
                 </View>
                 <View style={styles.cardCita}>
-                  <View style={styles.lineaLateral} />
+                  <View style={[styles.lineaLateral, { backgroundColor: obtenerColorPrioridad(item.prioridad) }]} />
                   <View>
                     <Text style={styles.nombre}>{item.name}</Text>
-                    <Text style={styles.tratamiento}>{item.treatment}</Text>
-                    <Text style={styles.motivo}>{item.reason}</Text>
+                    <Text style={styles.motivo}>Motivo: {item.reason}</Text>
+                    <Text style={styles.telefono}>Contacto: {item.telefono}</Text>
                   </View>
                 </View>
               </View>

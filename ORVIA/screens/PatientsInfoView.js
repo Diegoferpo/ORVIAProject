@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import styles from '../styles/PatientsInfoStyle';
+import { useRoute } from '@react-navigation/native';
 
 const InfoItem = ({ icon, label, value }) => (
   <View style={styles.segmentContainer}>
@@ -19,16 +20,13 @@ const PatientsInfoView = ({ navigation }) => {
   const [paciente, setPaciente] = useState(null);
   const [loading, setLoading] = useState(false);
 
+
+  const route = useRoute();
+
   useEffect(() => {
-    setPaciente({
-      nombre: 'Martintin Luna',
-      expediente: 315338,
-      telefono: '1234567890',
-      correo: 'tintin@example.com',
-      telefonoEmergencia: '9876543210',
-      idHistorial: 8,
-    });
-  }, []);
+    const { paciente } = route.params;
+    setPaciente(paciente);
+  }, []);  
 
   if (loading || !paciente) {
     return (
@@ -43,19 +41,16 @@ const PatientsInfoView = ({ navigation }) => {
       <Text style={styles.title}>Información del paciente</Text>
 
       <View style={styles.card}>
-        <InfoItem icon="file-text" label="Expediente" value={paciente.expediente} />
-        <InfoItem icon="user" label="Nombre" value={paciente.nombre} />
-        <InfoItem icon="phone" label="Teléfono" value={paciente.telefono} />
-        <InfoItem icon="mail" label="Correo electrónico" value={paciente.correo} />
-        <InfoItem icon="alert-triangle" label="Emergencia" value={paciente.telefonoEmergencia} />
-        <InfoItem icon="book" label="ID Historial" value={paciente.idHistorial} />
-
-
+        <InfoItem icon={"user"} label="Nombre" value={paciente?.name || 'No disponible'} />
+        <InfoItem icon={"file-text"} label="Expediente" value={paciente?.id?.toString() || 'No disponible'} />
+        <InfoItem icon={"mail"} label="Correo" value={paciente?.correo || 'No disponible'} />
+        <InfoItem icon={"phone"} label="Teléfono" value={paciente?.telefono || 'No disponible'} />
+        <InfoItem icon={"alert-triangle"} label="Teléfono de emergencia" value={paciente?.telefonoEmergencia || 'No disponible'} />
+        <InfoItem icon={"book"} label="ID Historial" value={paciente?.historial?.toString() || 'No disponible'} />
       </View>
     </ScrollView>
   );
 }
 
 export default PatientsInfoView;
-
 
