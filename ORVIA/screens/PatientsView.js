@@ -1,9 +1,14 @@
 import styles from '../styles/PatientsStyle';
 import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const PatientScreen = () => {
+import PatientsInfoView from './PatientsInfoView';
+
+const PatientsView = ({navigation}) => {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,6 +25,12 @@ const PatientScreen = () => {
     }, 1500);
   }, []);
 
+  const handlePatientPress = () => {
+    navigation.navigate('PatientInfo', {  }); // Poner lo del expediente del paciente (creo)
+  };
+  
+ 
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -28,7 +39,11 @@ const PatientScreen = () => {
           <ActivityIndicator size="large" color="#0593D3" style={{ marginTop: '10%' }} />
         ) : (
           patients.map((patient) => (
-            <TouchableOpacity key={patient.id} style={styles.card}>
+            <TouchableOpacity
+              key={patient.id}
+              style={styles.card}
+              onPress={() => handlePatientPress(patient)} // 🔹 Maneja clic
+            >
               <View style={styles.cardLeft}>
                 <Icon name="user" size={28} color="#0593D3" />
               </View>
@@ -47,4 +62,39 @@ const PatientScreen = () => {
   );
 };
 
-export default PatientScreen;
+ const Stack = createStackNavigator();
+  
+  const PatientStack = () => {
+    const insets = useSafeAreaInsets();
+  
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#022B3A',
+            height: Platform.OS === 'android' ? 80 : 80,
+          },
+          headerTintColor: '#fff',
+          headerTitleAlign: 'left',
+          headerTitleStyle: {
+            fontSize: 30,
+            fontWeight: 'bold',
+          },
+          headerBackTitleVisible: false,
+        }}
+      >
+        <Stack.Screen
+          name="Patients"
+          component={PatientsView}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PatientInfo"
+          component={PatientsInfoView}
+          options={{ title: 'Información de Paciente' }}
+        />
+      </Stack.Navigator>
+    );
+  };  
+
+export default PatientStack;
