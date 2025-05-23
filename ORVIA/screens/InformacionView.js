@@ -52,7 +52,7 @@ const InformacionView = () => {
   }
 
   const fechaISO = cita.fechaHora.split('T')[0];
-  const fecha = new Date(fechaISO + 'T00:00:00');
+  const fecha = new Date(cita.fechaHora);
   const nombre = cita.expediente?.nombre || 'Paciente';
   const hora = fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
@@ -76,6 +76,11 @@ const InformacionView = () => {
 
           <Text style={styles.etiqueta}>Asunto</Text>
           <Text style={styles.valor}>{cita.motivo || 'No especificado'}</Text>
+
+          <View style={styles.linea} />
+
+          <Text style={styles.etiqueta}>Nivel de prioridad</Text>
+          <Text style={styles.valor}>{cita.prioridad || 'No disponible'}</Text>
 
           <View style={styles.linea} />
 

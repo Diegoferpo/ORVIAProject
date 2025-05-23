@@ -29,7 +29,9 @@ const CalendarScreen = ({ navigation }) => {
         return fecha === date;
       });
 
-      const citasMapeadas = citasFiltradas.map(cita => ({
+      const citasMapeadas = citasFiltradas
+      .sort((a, b) => new Date(a.fechaHora) - new Date(b.fechaHora))
+      .map(cita => ({
         id: cita.idCita,
         name: cita.expediente?.nombre || 'Paciente desconocido',
         time: new Date(cita.fechaHora).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),

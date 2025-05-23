@@ -63,7 +63,13 @@ const CitasDelDiaView = () => {
           telefono: cita.expediente?.telefono || 'Sin telefono', 
           start: new Date(cita.fechaHora).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           end: calcularHoraFin(cita.fechaHora, cita.duracion),
-        }));
+          rawDate: new Date(cita.fechaHora),
+          prioridad: cita.prioridad
+        }))
+        .sort((a, b) => a.rawDate - b.rawDate);
+
+      setCitas(filtradas);
+
 
       setCitas(filtradas);
     } catch (error) {
@@ -71,6 +77,19 @@ const CitasDelDiaView = () => {
       setCitas([]);
     }
   };
+
+  const obtenerColorPrioridad = (prioridad) => {
+    switch (prioridad) {
+      case 1:
+        return '#6FCF97';
+      case 2:
+        return '#1E90FF'; 
+      case 3:
+        return '#FFA500'; 
+      default:
+        return '#ccc';
+    }
+  };  
 
   const calcularHoraFin = (fechaHora, duracionMin) => {
     const fecha = new Date(fechaHora);
@@ -151,7 +170,7 @@ const CitasDelDiaView = () => {
                   <Text style={styles.horaFin}>{item.end}</Text>
                 </View>
                 <View style={styles.cardCita}>
-                  <View style={styles.lineaLateral} />
+                  <View style={[styles.lineaLateral, { backgroundColor: obtenerColorPrioridad(item.prioridad) }]} />
                   <View>
                     <Text style={styles.nombre}>{item.name}</Text>
                     <Text style={styles.motivo}>Motivo: {item.reason}</Text>
