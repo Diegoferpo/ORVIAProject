@@ -11,6 +11,7 @@ import Navbar from './components/Navbar';
 import {Platform } from 'react-native';
 import CalendarStack from './screens/CalendarView';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import ProfileStack from './navigation/ProfileStack'
 
 
 const Tab = createBottomTabNavigator();
@@ -65,8 +66,19 @@ export default function App() {
             return {
               headerShown: !hideHeader,
             };
-          }}/>
-        <Tab.Screen name="Perfil" component={ProfileView} />
+          }}
+          />
+        <Tab.Screen 
+        name="Perfil"
+        component={ProfileStack}
+        options={({ route }) => {
+            const routeName = getFocusedRouteNameFromRoute(route) ?? 'PerfilPrincipal';
+            const hideHeader = routeName !== 'PerfilPrincipal';
+            return {
+              headerShown: !hideHeader,
+            };
+          }} 
+          />
       </Tab.Navigator>
 
     </NavigationContainer>

@@ -20,6 +20,7 @@ const PatientsInfoView = ({ navigation }) => {
   const [paciente, setPaciente] = useState(null);
   const [loading, setLoading] = useState(false);
 
+
   const route = useRoute();
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const PatientsInfoView = ({ navigation }) => {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       <Text style={styles.title}>Información del paciente</Text>
+
       <View style={styles.card}>
         <InfoItem icon={"user"} label="Nombre" value={paciente?.name || 'No disponible'} />
         <InfoItem icon={"file-text"} label="Expediente" value={paciente?.id?.toString() || 'No disponible'} />
@@ -51,3 +53,4 @@ const PatientsInfoView = ({ navigation }) => {
 }
 
 export default PatientsInfoView;
+

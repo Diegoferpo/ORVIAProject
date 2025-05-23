@@ -9,6 +9,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import React from 'react';
 
 const PatientsView = ({ navigation }) => {
+
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -72,6 +73,12 @@ const PatientsView = ({ navigation }) => {
     navigation.navigate('PatientInfo', { paciente: patient });
   };
 
+  const handlePatientPress = () => {
+    navigation.navigate('PatientInfo', {  }); // Poner lo del expediente del paciente (creo)
+  };
+  
+ 
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -120,6 +127,7 @@ const PatientsView = ({ navigation }) => {
     </View>
   );
 };
+
 
 const Stack = createStackNavigator();
 
