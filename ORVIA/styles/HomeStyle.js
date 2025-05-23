@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold'
     },
     lista: {
-      paddingBottom: 100,
+      paddingBottom: 140,
     },
     card: {
       backgroundColor: '#E1E5F2',
@@ -31,12 +31,15 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
       marginRight: '5%',
-      backgroundColor: '#fff',
+      backgroundColor: '#f2f2f2',
       height:'100%',
-      width: '14%',
+      aspectRatio: 0.96,
       alignItems: 'center',
-      borderRadius: 30,
-      padding: 10
+      borderRadius: 25,
+      padding: 10,
+      justifyContent: 'center',
+      shadowColor: '#000',
+      shadowRadius: 4,
     },
     timeContainer: {
       padding: '5%',

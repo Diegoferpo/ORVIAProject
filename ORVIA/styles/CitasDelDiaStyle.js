@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   },
 
   listaCitas: {
-    paddingBottom: 100,
     paddingLeft: 7,
   },
   citaFila: {

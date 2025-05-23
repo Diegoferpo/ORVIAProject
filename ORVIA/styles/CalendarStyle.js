@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
   },
   scrollArea: {
     paddingHorizontal: 20,
-    paddingBottom: 100,
   },
   card: {
     backgroundColor: '#EAEFFF',
