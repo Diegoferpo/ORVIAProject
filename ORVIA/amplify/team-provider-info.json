@@ -16,5 +16,23 @@
         "orvia8251ab9a": {}
       }
     }
+  },
+  "orvia": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-orvia-orvia-dbbc9-authRole",
+      "UnauthRoleArn": "arn:aws:iam::854718764306:role/amplify-orvia-orvia-dbbc9-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::854718764306:role/amplify-orvia-orvia-dbbc9-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-orvia-orvia-dbbc9-deployment",
+      "UnauthRoleName": "amplify-orvia-orvia-dbbc9-unauthRole",
+      "StackName": "amplify-orvia-orvia-dbbc9",
+      "StackId": "arn:aws:cloudformation:us-east-2:854718764306:stack/amplify-orvia-orvia-dbbc9/ba022ba0-3857-11f0-a53f-0273df51cd65",
+      "AmplifyAppId": "d2lyxlqvvc8wuc"
+    },
+    "categories": {
+      "auth": {
+        "orvia8251ab9a": {}
+      }
+    }
   }
 }
