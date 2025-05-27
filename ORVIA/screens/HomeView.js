@@ -23,9 +23,8 @@ const HomeView = () => {
           const response = await fetch('http://54.237.212.176:3000/api/v1/cita');
           const data = await response.json();
   
-          //const hoy = new Date();
-          //const hoyStr = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
-          const hoyStr = '2025-05-23';
+          const hoy = new Date();
+          const hoyStr = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
 
           const citasHoy = data
             .filter(cita => {
