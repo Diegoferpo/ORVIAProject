@@ -1,36 +1,58 @@
 import { View, Text, FlatList, ActivityIndicator } from 'react-native';
-import { useEffect, useState } from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
+import { TouchableOpacity, Platform } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+
+import Icon from 'react-native-vector-icons/Feather';
+import InformacionView from './InformacionView';
 import styles from '../styles/HomeStyle';
+import React from 'react';
 
 const HomeView = () => {
   const [citas, setCitas] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
 
-  useEffect(() => {
-    // Simulación de llamada a una API
-    setTimeout(() => {
-      const fakeCitas = [
-        {
-          id: '1',
-          nombre: 'Diego Portillo Bibiano',
-          fecha: '2025-03-12T14:00:00',
-        },
-        {
-          id: '2',
-          nombre: 'Emmanuel Moscoso Aquino',
-          fecha: '2025-03-12T15:00:00',
-        },
-        {
-          id: '3',
-          nombre: 'Laura Gutiérrez',
-          fecha: '2025-06-20T11:00:00',
-        },
-      ];
-      setCitas(fakeCitas);
-      setLoading(false);
-    }, 1500);
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchCitas = async () => {
+        setLoading(true);
+        try {
+          const response = await fetch('http://54.237.212.176:3000/api/v1/cita');
+          const data = await response.json();
+  
+          const hoy = new Date();
+          const hoyStr = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
+  
+          const citasHoy = data
+            .filter(cita => {
+              const fecha = new Date(cita.fechaHora);
+              const citaStr = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}-${String(fecha.getDate()).padStart(2, '0')}`;
+              return citaStr === hoyStr;
+            })
+            .sort((a, b) => new Date(a.fechaHora) - new Date(b.fechaHora)) // Aquí se ordenan
+            .map(cita => ({
+              id: cita.idCita,
+              nombre: cita.expediente?.nombre || 'Paciente',
+              fecha: cita.fechaHora,
+              prioridad: cita.prioridad,
+            }));
+
+  
+          setCitas(citasHoy);
+        } catch (error) {
+          console.error('Error al cargar citas:', error);
+          setCitas([]);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchCitas();
+    }, [])
+  );
 
   const formatearFecha = (fechaISO) => {
     const fecha = new Date(fechaISO);
@@ -41,29 +63,46 @@ const HomeView = () => {
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
+      hour12: true,
     }).format(fecha);
   };
+
+  const obtenerColorPrioridad = (prioridad) => {
+    switch (prioridad) {
+      case 1: return '#72C9A2';
+      case 2: return '#7CAACF';
+      case 3: return '#F5A96F'; 
+      default: return '#ccc';   
+    }
+  };  
 
   const renderItem = ({ item }) => {
     const fechaFormateada = formatearFecha(item.fecha);
 
     return (
-      <View style={styles.card}>
-        <View style={{backgroundColor: '#1F7A8C', width:10, height: '100%'}}><Text></Text></View>
-        <View style={{flex: 1}}>
-            <View style={styles.timeContainer}>
-                <Text style={styles.fecha}>Fecha & Hora - {fechaFormateada}</Text>
-            </View>
-            
-            <View style={styles.patientContainer}>
-                <View style={styles.iconContainer}>
-                    <Ionicons name="person" size={26} color="#000" />
-                </View>
+      <TouchableOpacity onPress={() => navigation.navigate('InformacionView', {idCita: item.id})}>
+        <View style={styles.card}>
+         <View style={{
+          backgroundColor: obtenerColorPrioridad(item.prioridad),
+          width: 10,
+          height: '100%',
+          borderTopLeftRadius: 10,
+          borderBottomLeftRadius: 10,
+        }} />          
+          <View style={{flex: 1}}>
+              <View style={styles.timeContainer}>
+                  <Text style={styles.fecha}>Fecha & Hora - {fechaFormateada}</Text>
+              </View>
+              <View style={styles.patientContainer}>
+                  <View style={styles.iconContainer}>
+                      <Icon name="user" size={26} color="#0593D3" />
+                  </View>
 
-                <Text style={styles.nombre}>{item.nombre}</Text>
-            </View>
+                  <Text style={styles.nombre}>{item.nombre}</Text>
+              </View>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -88,5 +127,39 @@ const HomeView = () => {
     </View>
   );
 };
-export default HomeView;
+
+const Stack = createStackNavigator();
+
+const HomeStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#022B3A',
+          height: Platform.OS === 'android' ? 80 : 80,
+        },
+        headerTintColor: '#fff',
+        headerTitleAlign: 'left',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          fontSize: 30,
+        },
+        headerBackTitleVisible: false,
+      }}
+    >
+      <Stack.Screen
+        name="HomeView"
+        component={HomeView}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="InformacionView"
+        component={InformacionView}
+        options={{ title: 'Detalles de la Cita' }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+export default HomeStack;
 

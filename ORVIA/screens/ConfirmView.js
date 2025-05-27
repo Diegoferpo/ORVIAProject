@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { View, TextInput, Button, Text, Alert } from 'react-native';
-import { Auth } from 'aws-amplify';
+import { useState } from 'react';
+
 
 export default function ConfirmView({ route, navigation }) {
   const { email } = route.params;

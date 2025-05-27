@@ -5,7 +5,6 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F9FB',
     padding: 16,
   },
 
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
 
   etiqueta: {
     fontSize: 14,
-    color: '#333',
+    color: '#000',
     fontWeight: '600',
     marginBottom: 4,
   },

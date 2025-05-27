@@ -2,14 +2,13 @@ import { StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#f7f7f7',
+    flex: 1
   },
   scrollContent: {
     paddingBottom: '20%',
   },
   header: {
-    backgroundColor: '#f7f7f7',
+    backgroundColor: '#f2f2f2',
     paddingVertical: '5%',
     paddingHorizontal: '5%',
   },
@@ -22,11 +21,14 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   avatar: {
-    width: '15%',
-    aspectRatio: 1,
-    borderRadius: 50,
-    marginRight: '5%',
-  },
+  width: 50,
+  height: 50,
+  borderRadius: 25,
+  backgroundColor: '#E0F7FA',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginRight: '5%',
+},
   name: {
     color: '#fff',
     fontSize: 18,

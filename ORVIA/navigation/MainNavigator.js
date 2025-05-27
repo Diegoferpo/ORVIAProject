@@ -1,24 +1,26 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Platform } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Platform } from 'react-native';
 
-import HomeView from '../screens/HomeView';
-import CalendarStack from '../screens/CalendarView';
-import PatientsView from '../screens/PatientsView';
-import ProfileView from '../screens/ProfileView';
 import CreateAppointment from '../screens/CreateAppointmentView';
+import CalendarStack from '../screens/CalendarView';
+import HomeView from '../screens/HomeView';
 import Navbar from '../components/Navbar';
+import PatientStack from '../screens/PatientsView';
+import ProfileStack from './ProfileStack';
 
 const Tab = createBottomTabNavigator();
 
 export default function MainNavigator() {
   return (
+    <SafeAreaProvider>
     <Tab.Navigator
       screenOptions={{
         headerShown: true,
         headerStyle: {
           backgroundColor: '#022B3A',
-          height: Platform.OS === 'android' ? 80 : 80,
+          height: Platform.OS === 'android' ? 90 : 110,
         },
         headerTintColor: '#fff',
         headerTitleAlign: 'left',
@@ -40,8 +42,29 @@ export default function MainNavigator() {
         }}
       />
       <Tab.Screen name="Agendar Cita" component={CreateAppointment} />
-      <Tab.Screen name="Pacientes" component={PatientsView} />
-      <Tab.Screen name="Perfil" component={ProfileView} />
+      <Tab.Screen 
+        name="Pacientes" 
+        component={PatientStack} 
+        options={({ route }) => {
+          const routeName = getFocusedRouteNameFromRoute(route) ?? 'Patients';
+          const hideHeader = routeName !== 'Patients';
+          return {
+            headerShown: !hideHeader,
+          };
+        }}
+      />
+      <Tab.Screen 
+        name="Perfil" 
+        component={ProfileStack} 
+        options={({ route }) => {
+          const routeName = getFocusedRouteNameFromRoute(route) ?? 'PerfilPrincipal';
+          const hideHeader = routeName !== 'PerfilPrincipal';
+          return {
+            headerShown: !hideHeader,
+          };
+        }}
+      />
     </Tab.Navigator>
+    </SafeAreaProvider>
   );
 }
