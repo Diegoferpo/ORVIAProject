@@ -13,7 +13,7 @@ import DatePickerComponent from '../../components/DatePickerComponent';
 
 const EditProfileView = ({ navigation }) => {
   const [firstName, setFirstName] = useState('Emmet');
-  const [lastName, setLastName] = useState('Lego');
+  const [lastName, setLastName] = useState('L.');
   const [profession, setProfession] = useState('Fisioterapeuta');
   const [phone, setPhone] = useState('4421234567');
 
