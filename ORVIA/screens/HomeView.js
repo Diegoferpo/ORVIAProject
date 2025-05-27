@@ -25,7 +25,7 @@ const HomeView = () => {
   
           const hoy = new Date();
           const hoyStr = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
-  
+
           const citasHoy = data
             .filter(cita => {
               const fecha = new Date(cita.fechaHora);
@@ -69,9 +69,9 @@ const HomeView = () => {
 
   const obtenerColorPrioridad = (prioridad) => {
     switch (prioridad) {
-      case 1: return '#6FCF97';
-      case 2: return '#1E90FF';
-      case 3: return '#FFA500'; 
+      case 1: return '#72C9A2';
+      case 2: return '#7CAACF';
+      case 3: return '#F5A96F'; 
       default: return '#ccc';   
     }
   };  
@@ -82,7 +82,13 @@ const HomeView = () => {
     return (
       <TouchableOpacity onPress={() => navigation.navigate('InformacionView', {idCita: item.id})}>
         <View style={styles.card}>
-          <View style={{backgroundColor: '#1F7A8C', width:10, height: '100%'}}><Text></Text></View>
+        <View style={{
+          backgroundColor: obtenerColorPrioridad(item.prioridad),
+          width: 10,
+          height: '100%',
+          borderTopLeftRadius: 10,
+          borderBottomLeftRadius: 10,
+        }} />          
           <View style={{flex: 1}}>
               <View style={styles.timeContainer}>
                   <Text style={styles.fecha}>Fecha & Hora - {fechaFormateada}</Text>

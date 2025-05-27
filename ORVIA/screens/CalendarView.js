@@ -75,11 +75,12 @@ const CalendarScreen = ({ navigation }) => {
           },
         }}
         theme={{
-          calendarBackground: '#fff',
+          calendarBackground: '#F2F2F2',
           textSectionTitleColor: '#000',
           selectedDayTextColor: '#fff',
           todayTextColor: '#00566B',
           dayTextColor: '#000',
+          textDisabledColor: '#b3b3b3',
           arrowColor: '#00566B',
           monthTextColor: '#000',
           textDayFontWeight: '400',

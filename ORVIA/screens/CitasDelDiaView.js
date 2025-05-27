@@ -81,11 +81,11 @@ const CitasDelDiaView = () => {
   const obtenerColorPrioridad = (prioridad) => {
     switch (prioridad) {
       case 1:
-        return '#6FCF97';
+        return '#72C9A2';
       case 2:
-        return '#1E90FF'; 
+        return '#7CAACF'; 
       case 3:
-        return '#FFA500'; 
+        return '#F5A96F'; 
       default:
         return '#ccc';
     }
