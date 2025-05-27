@@ -80,6 +80,7 @@ const CalendarScreen = ({ navigation }) => {
           selectedDayTextColor: '#fff',
           todayTextColor: '#00566B',
           dayTextColor: '#000',
+          textDisabledColor: '#b3b3b3',
           arrowColor: '#00566B',
           monthTextColor: '#000',
           textDayFontWeight: '400',

@@ -74,7 +74,6 @@ const PatientsView = ({ navigation }) => {
   const handlePatientPress = (patient) => {
     navigation.navigate('PatientInfo', { paciente: patient });
   };
-  
 
   return (
     <View style={styles.container}> 

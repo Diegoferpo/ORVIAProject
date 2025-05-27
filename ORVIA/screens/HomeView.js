@@ -25,7 +25,7 @@ const HomeView = () => {
   
           const hoy = new Date();
           const hoyStr = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
-  
+
           const citasHoy = data
             .filter(cita => {
               const fecha = new Date(cita.fechaHora);
@@ -82,7 +82,8 @@ const HomeView = () => {
     return (
       <TouchableOpacity onPress={() => navigation.navigate('InformacionView', {idCita: item.id})}>
         <View style={styles.card}>
-         <View style={{
+
+        <View style={{
           backgroundColor: obtenerColorPrioridad(item.prioridad),
           width: 10,
           height: '100%',

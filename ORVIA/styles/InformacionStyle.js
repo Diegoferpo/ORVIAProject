@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-
+  
   fechaHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
