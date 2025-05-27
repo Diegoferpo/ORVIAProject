@@ -4,11 +4,11 @@ import styles from '../styles/CitasDelDiaStyle';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
-const ITEM_WIDTH = width / 7;
+const ITEM_WIDTH = Math.floor(width / 7);
 
 const generarRangoDias = (fechaCentral) => {
   const centro = new Date(fechaCentral);
-  const dias = [];
+  const dias = [];  
   for (let i = -15; i <= 15; i++) {
     const nueva = new Date(centro);
     nueva.setDate(centro.getDate() + i);
@@ -81,11 +81,11 @@ const CitasDelDiaView = () => {
   const obtenerColorPrioridad = (prioridad) => {
     switch (prioridad) {
       case 1:
-        return '#6FCF97';
+        return '#72C9A2';
       case 2:
-        return '#1E90FF'; 
+        return '#7CAACF'; 
       case 3:
-        return '#FFA500'; 
+        return '#F5A96F'; 
       default:
         return '#ccc';
     }
@@ -132,6 +132,7 @@ const CitasDelDiaView = () => {
             keyExtractor={(_, index) => index.toString()}
             snapToInterval={ITEM_WIDTH}
             decelerationRate="fast"
+            bounces={false}
             onMomentumScrollEnd={onScrollEnd}
             getItemLayout={(_, index) => ({ length: ITEM_WIDTH, offset: ITEM_WIDTH * index, index })}
             contentContainerStyle={{ paddingHorizontal: (width - ITEM_WIDTH) / 2 }}
