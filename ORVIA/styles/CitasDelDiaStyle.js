@@ -6,7 +6,6 @@ const ITEM_WIDTH = width / 7;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F9FB',
     padding: 16,
     paddingLeft: 12,
   },
