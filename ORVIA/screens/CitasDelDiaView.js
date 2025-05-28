@@ -6,11 +6,11 @@ import styles from '../styles/CitasDelDiaStyle';
 
 
 const { width } = Dimensions.get('window');
-const ITEM_WIDTH = width / 7;
+const ITEM_WIDTH = Math.floor(width / 7);
 
 const generarRangoDias = (fechaCentral) => {
   const centro = new Date(fechaCentral);
-  const dias = [];
+  const dias = [];  
   for (let i = -15; i <= 15; i++) {
     const nueva = new Date(centro);
     nueva.setDate(centro.getDate() + i);
@@ -134,6 +134,7 @@ const CitasDelDiaView = () => {
             keyExtractor={(_, index) => index.toString()}
             snapToInterval={ITEM_WIDTH}
             decelerationRate="fast"
+            bounces={false}
             onMomentumScrollEnd={onScrollEnd}
             getItemLayout={(_, index) => ({ length: ITEM_WIDTH, offset: ITEM_WIDTH * index, index })}
             contentContainerStyle={{ paddingHorizontal: (width - ITEM_WIDTH) / 2 }}

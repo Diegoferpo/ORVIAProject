@@ -65,6 +65,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     marginBottom: 16,
   },
+  
+  eliminarBtn: {
+    backgroundColor: '#D32F2F',
+    padding: 16,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    marginBottom: 20,
+  },
+
+  eliminarTexto: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 });
 
 export default styles;

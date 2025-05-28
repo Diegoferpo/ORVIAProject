@@ -75,6 +75,7 @@ const CalendarScreen = ({ navigation }) => {
           },
         }}
         theme={{
+
           calendarBackground: '#f2f2f2',
           textSectionTitleColor: '#000',
           selectedDayTextColor: '#fff',
@@ -153,7 +154,7 @@ export const CalendarStack = () => {
       <Stack.Screen
         name="InformacionView"
         component={InformacionView}
-        options={{ title: 'Informacion de la cita' }}
+        options={{ title: 'Informacion cita' }}
       />
     </Stack.Navigator>
   );

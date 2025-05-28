@@ -1,8 +1,7 @@
 import { View, Text, TextInput, Platform, TouchableOpacity } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { Picker } from '@react-native-picker/picker';
-import { useState } from 'react';
-
+import { KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import styles from '../styles/CreateAppointmentStyle';
 
@@ -96,8 +95,17 @@ const CreateAppointmentView = () => {
   };
 
   return (
-    <GestureHandlerRootView>
-    <ScrollView contentContainerStyle={styles.container}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={100} // ajusta según tu header o layout
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ScrollView
+            contentContainerStyle={styles.container}
+            keyboardShouldPersistTaps="handled"
+          >
 
       <Text style={styles.label}>Expediente</Text>
       <TextInput
@@ -149,7 +157,7 @@ const CreateAppointmentView = () => {
             }}
           >
             <Picker.Item label="Selecciona duración" value="" />
-            <Picker.Item label="20 minutos" value="15" />
+            <Picker.Item label="15 minutos" value="15" />
             <Picker.Item label="30 minutos" value="30" />
             <Picker.Item label="45 minutos" value="45" />
             <Picker.Item label="60 minutos" value="60" />
@@ -204,6 +212,8 @@ const CreateAppointmentView = () => {
             <Text style={styles.buttonText}>Guardar cita</Text>
         </TouchableOpacity>
     </ScrollView>
+    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
     </GestureHandlerRootView>
     );
 }

@@ -82,7 +82,6 @@ const HomeView = () => {
     return (
       <TouchableOpacity onPress={() => navigation.navigate('InformacionView', {idCita: item.id})}>
         <View style={styles.card}>
-
         <View style={{
           backgroundColor: obtenerColorPrioridad(item.prioridad),
           width: 10,

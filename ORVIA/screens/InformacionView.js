@@ -1,8 +1,9 @@
-import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
-import { useRoute } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity, Alert, } from 'react-native';
 import styles from '../styles/InformacionStyle';
+import { useRoute, useNavigation } from '@react-navigation/native';
+
+
 
 const formatoFechaCompleta = (fecha) =>
   fecha.toLocaleDateString('es-ES', {
@@ -14,6 +15,7 @@ const formatoFechaCompleta = (fecha) =>
 
 const InformacionView = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const { idCita } = route.params;
 
   const [cita, setCita] = useState(null);
@@ -24,7 +26,7 @@ const InformacionView = () => {
       try {
         const response = await fetch('http://54.237.212.176:3000/api/v1/cita');
         const data = await response.json();
-        const encontrada = data.find(c => c.idCita.toString() === idCita.toString());
+        const encontrada = data.find((c) => c.idCita.toString() === idCita.toString());
         setCita(encontrada);
       } catch (error) {
         console.error('Error al obtener la cita:', error);
@@ -113,6 +115,35 @@ const InformacionView = () => {
           <Text style={styles.etiqueta}>Telefono de emergencia</Text>
           <Text style={styles.valor}>{cita.expediente?.telefonoEmergencia || 'No disponible'}</Text>
         </ScrollView>
+
+        <TouchableOpacity
+          style={styles.eliminarBtn}
+          onPress={() => {
+            Alert.alert(
+              'Eliminar cita',
+              '¿Estás seguro de que quieres eliminar esta cita?',
+              [
+                { text: 'Cancelar', style: 'cancel' },
+                {
+                  text: 'Eliminar',
+                  style: 'destructive',
+                  onPress: async () => {
+                    try {
+                      await fetch(`http://54.237.212.176:3000/api/v1/cita/${idCita}`, {
+                        method: 'DELETE',
+                      });
+                      navigation.goBack(); // Vuelve a la pantalla anterior
+                    } catch (error) {
+                      console.error('Error al eliminar la cita:', error);
+                    }
+                  },
+                },
+              ]
+            );
+          }}
+        >
+          <Text style={styles.eliminarTexto}>Eliminar cita</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
