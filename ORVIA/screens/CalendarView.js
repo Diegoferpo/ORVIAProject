@@ -153,7 +153,7 @@ export const CalendarStack = () => {
       <Stack.Screen
         name="InformacionView"
         component={InformacionView}
-        options={{ title: 'Informacion de la cita' }}
+        options={{ title: 'Informacion cita' }}
       />
     </Stack.Navigator>
   );

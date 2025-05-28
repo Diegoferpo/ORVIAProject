@@ -161,7 +161,7 @@ const CreateAppointmentView = () => {
             }}
           >
             <Picker.Item label="Selecciona duración" value="" />
-            <Picker.Item label="20 minutos" value="15" />
+            <Picker.Item label="15 minutos" value="15" />
             <Picker.Item label="30 minutos" value="30" />
             <Picker.Item label="45 minutos" value="45" />
             <Picker.Item label="60 minutos" value="60" />

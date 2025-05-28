@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  
+
   fechaHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -64,6 +64,22 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#ccc',
     marginBottom: 16,
+  },
+  
+  eliminarBtn: {
+    backgroundColor: '#D32F2F',
+    padding: 16,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    marginBottom: 20,
+  },
+
+  eliminarTexto: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 
