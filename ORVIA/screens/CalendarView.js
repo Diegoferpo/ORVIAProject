@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Platform, TouchableOpacity } from 'react-native';
-import { Calendar } from 'react-native-calendars';
-import { createStackNavigator } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Calendar } from 'react-native-calendars';
+import { useState, useEffect } from 'react';
 
-import styles from '../styles/CalendarStyle';
 import CitasDelDiaView from './CitasDelDiaView';
 import InformacionView from './InformacionView';
+import styles from '../styles/CalendarStyle';
   
 const localToday = new Date();
 const today = `${localToday.getFullYear()}-${String(localToday.getMonth() + 1).padStart(2, '0')}-${String(localToday.getDate()).padStart(2, '0')}`;
@@ -75,7 +75,8 @@ const CalendarScreen = ({ navigation }) => {
           },
         }}
         theme={{
-          calendarBackground: '#F2F2F2',
+
+          calendarBackground: '#f2f2f2',
           textSectionTitleColor: '#000',
           selectedDayTextColor: '#fff',
           todayTextColor: '#00566B',
@@ -129,7 +130,7 @@ export const CalendarStack = () => {
       screenOptions={{
         headerStyle: {
           backgroundColor: '#022B3A',
-          height: Platform.OS === 'android' ? 80 : 80,
+          height: Platform.OS === 'android' ? 80 : 110,
         },
         headerTintColor: '#fff',
         headerTitleAlign: 'left',

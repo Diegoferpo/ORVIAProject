@@ -1,14 +1,14 @@
 import { View, Text, FlatList, ActivityIndicator } from 'react-native';
-import { useEffect, useState } from 'react';
-import { Ionicons } from '@expo/vector-icons';
-import styles from '../styles/HomeStyle';
 import { useFocusEffect } from '@react-navigation/native';
-import React from 'react';
 import { TouchableOpacity, Platform } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import InformacionView from './InformacionView';
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+
 import Icon from 'react-native-vector-icons/Feather';
+import InformacionView from './InformacionView';
+import styles from '../styles/HomeStyle';
+import React from 'react';
 
 const HomeView = () => {
   const [citas, setCitas] = useState([]);
@@ -32,7 +32,7 @@ const HomeView = () => {
               const citaStr = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}-${String(fecha.getDate()).padStart(2, '0')}`;
               return citaStr === hoyStr;
             })
-            .sort((a, b) => new Date(a.fechaHora) - new Date(b.fechaHora)) // 👈 Aquí se ordenan
+            .sort((a, b) => new Date(a.fechaHora) - new Date(b.fechaHora)) // Aquí se ordenan
             .map(cita => ({
               id: cita.idCita,
               nombre: cita.expediente?.nombre || 'Paciente',

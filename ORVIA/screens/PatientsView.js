@@ -1,12 +1,14 @@
-import styles from '../styles/PatientsStyle';
-import { useEffect, useState } from 'react';
 import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity, TextInput, Platform } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
-import { createStackNavigator } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import PatientsInfoView from './PatientsInfoView';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useFocusEffect } from '@react-navigation/native';
+import PatientsInfoView from './PatientsInfoView';
+import { useEffect, useState } from 'react';
+
+import Icon from 'react-native-vector-icons/Feather';
+import styles from '../styles/PatientsStyle';
 import React from 'react';
+
 
 const PatientsView = ({ navigation }) => {
 
@@ -74,7 +76,7 @@ const PatientsView = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container}> 
       <ScrollView contentContainerStyle={styles.scrollContent}>
 
         <View style={styles.searchContainer}>
@@ -133,7 +135,7 @@ const PatientStack = () => {
       screenOptions={{
         headerStyle: {
           backgroundColor: '#022B3A',
-          height: Platform.OS === 'android' ? 80 : 80,
+          height: Platform.OS === 'android' ? 80 : 110,
         },
         headerTintColor: '#fff',
         headerTitleAlign: 'left',

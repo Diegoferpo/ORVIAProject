@@ -1,11 +1,10 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Platform } from 'react-native';
 
 import ProfileView from '../screens/ProfileView'; 
 import EditProfileView from '../screens/settingsScreens/EditProfileView';
 import AccountView from '../screens/settingsScreens/AccountView';
-import NotificationView from '../screens/settingsScreens/NotificationView';
 import AboutView from '../screens/settingsScreens/AboutView';
 import FAQView from '../screens/settingsScreens/FAQView';
 import HelpView from '../screens/settingsScreens/HelpView';
@@ -25,7 +24,7 @@ export const ProfileStack = () => {
       screenOptions={{
         headerStyle: {
           backgroundColor: '#022B3A',
-          height: Platform.OS === 'android' ? 80 : 80,
+          height: Platform.OS === 'android' ? 80 : 110,
         },
         headerTintColor: '#fff',
         headerTitleAlign: 'left',
@@ -50,11 +49,6 @@ export const ProfileStack = () => {
         name="Account"
         component={AccountView}
         options={{ title: 'Ajustes de cuenta' }}
-      />
-      <Stack.Screen
-        name="Notification"
-        component={NotificationView}
-        options={{ title: 'Notificaciones' }}
       />
       <Stack.Screen
         name="About"

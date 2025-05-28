@@ -3,6 +3,8 @@ import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity, Alert, } f
 import styles from '../styles/InformacionStyle';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
+
+
 const formatoFechaCompleta = (fecha) =>
   fecha.toLocaleDateString('es-ES', {
     weekday: 'long',

@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Platform, TouchableOpacity } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { View, Text, TextInput, Platform, TouchableOpacity } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
-import styles from '../styles/CreateAppointmentStyle';
 import { Picker } from '@react-native-picker/picker';
 import { KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback } from 'react-native';
-
-
-
+import DateTimePicker from '@react-native-community/datetimepicker';
+import styles from '../styles/CreateAppointmentStyle';
 
 const CreateAppointmentView = () => {
     const [expediente, setExpediente] = useState('');
