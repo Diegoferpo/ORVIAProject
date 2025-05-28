@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+
 import styles from '../../styles/settingsScreensStyles/AccountStyle';
+import Icon from 'react-native-vector-icons/Feather';
 
 const AccountSettingsView = ({ navigation }) => {
   return (

@@ -1,5 +1,5 @@
-import React from 'react';
 import {Text, ScrollView } from 'react-native';
+
 import styles from '../../styles/settingsScreensStyles/FAQStyle';
 
 const FAQView = ({ navigation }) => {

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+
 import Icon from 'react-native-vector-icons/Feather';
 import styles from '../styles/PatientsInfoStyle';
-import { useRoute } from '@react-navigation/native';
 
 const InfoItem = ({ icon, label, value }) => (
   <View style={styles.segmentContainer}>

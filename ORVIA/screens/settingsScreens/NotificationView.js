@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { View, Text, Switch, Button, ScrollView, Platform } from 'react-native';
-import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import styles from '../../styles/settingsScreensStyles/NotificationStyle';
 
-Notifications.setNotificationHandler({
+/*Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowBanner: true,
     shouldPlaySound: true,
@@ -128,4 +127,4 @@ async function registerForPushNotificationsAsync() {
   return token;
 }
 
-export default NotificationView;
+export default NotificationView; */

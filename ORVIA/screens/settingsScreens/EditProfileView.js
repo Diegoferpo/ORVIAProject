@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+
 import styles from '../../styles/settingsScreensStyles/EditProfileStyle';
 import DatePickerComponent from '../../components/DatePickerComponent';
+import Icon from 'react-native-vector-icons/Feather';
 
 const EditProfileView = ({ navigation }) => {
   const [firstName, setFirstName] = useState('Emmet');

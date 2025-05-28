@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
-import styles from '../styles/InformacionStyle';
 import { useRoute } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+
+import styles from '../styles/InformacionStyle';
 
 const formatoFechaCompleta = (fecha) =>
   fecha.toLocaleDateString('es-ES', {

@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import { Text, ScrollView, TextInput, Button, Alert } from 'react-native';
+
 import styles from '../../styles/settingsScreensStyles/ReportProblemStyle';
 
 
